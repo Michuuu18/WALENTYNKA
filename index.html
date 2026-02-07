@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zostaniesz moją Walentynką?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec; /* Jasny róż */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden; /* Zapobiega paskom przewijania przy powiększaniu */
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .gif-container img {
+            width: 200px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #yesBtn {
+            background-color: #4CAF50; /* Zielony */
+            color: white;
+            font-weight: bold;
+        }
+
+        #noBtn {
+            background-color: #ef5350; /* Czerwony */
+            color: white;
+        }
+
+        /* Ekran sukcesu */
+        #success-screen {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-screen">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmZlZmRjNmQ2ZDMwM2U4MzY4ODMyODVlMDQ5MGE5ODQ4Y2M0ZGE4YiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/cLS1cfxvGOPVpf9w3y/giphy.gif" alt="Cute Bear">
+        </div>
+        <h1>Zostaniesz moją Walentynką?</h1>
+        <div class="buttons">
+            <button id="yesBtn" onclick="acceptProposal()">Tak</button>
+            <button id="noBtn" onclick="rejectProposal()">Nie</button>
+        </div>
+    </div>
+
+    <div id="success-screen">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2I2NDk4MzY2ZDMwM2U4MzY4ODMyODVlMDQ5MGE5ODQ4Y2M0ZGE4YiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/T86i6yDyOYz7J6dPhf/giphy.gif" alt="Kissing Bears">
+        </div>
+        <h1>Jej! Wiedziałem! ❤️</h1>
+    </div>
+
+    <script>
+        let yesBtnSize = 1.2; // Początkowy rozmiar czcionki
+        let yesBtnPadding = 15; // Początkowy padding
+        
+        // Teksty, które pojawiają się na przycisku NIE
+        const phrases = [
+            "Nie",
+            "Jesteś pewna?",
+            "Na pewno?",
+            "Przemyśl to!",
+            "Proszę...",
+            "Zrobisz mi przykrość :(",
+            "Złamię mi serce!",
+            "Płaczę...",
+            "Nie rób mi tego!",
+            "Dobra, koniec żartów, kliknij TAK!"
+        ];
+        
+        let phraseIndex = 0;
+
+        function rejectProposal() {
+            phraseIndex++;
+            
+            // Zmiana tekstu na przycisku NIE
+            if (phraseIndex < phrases.length) {
+                document.getElementById('noBtn').innerText = phrases[phraseIndex];
+            } else {
+                document.getElementById('noBtn').innerText = "TAK (nie ma wyboru)";
+            }
+
+            // Powiększanie przycisku TAK
+            yesBtnSize += 0.5;
+            yesBtnPadding += 10;
+            
+            const yesBtn = document.getElementById('yesBtn');
+            yesBtn.style.fontSize = `${yesBtnSize}rem`;
+            yesBtn.style.padding = `${yesBtnPadding}px ${yesBtnPadding * 2}px`;
+
+            // Opcjonalnie: Ukryj przycisk NIE, jeśli TAK jest za duży
+            if (yesBtnSize > 6) {
+                 document.getElementById('noBtn').style.display = 'none';
+            }
+        }
+
+        function acceptProposal() {
+            document.getElementById('main-screen').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
